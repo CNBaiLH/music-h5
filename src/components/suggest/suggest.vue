@@ -143,8 +143,8 @@
       },
       // 检查数据当中是否还有更多数据可以加载
       _checkMore(data) {
-        const song = data.song
-        if (!song.list.length || (song.curnum + song.curpage * perpage) >= song.totalnum) {
+        const song = data
+        if (!song.list.length || (song.meta.page) >= song.meta.total_page) {
           this.hasMore = false
         }
       },
@@ -154,19 +154,20 @@
         if (data.zhida && data.zhida.zhida_singer) {
           ret.push({...data.zhida, ...{type: TYPE_SINGER}})
         }
-        if (data.song) {
-          ret = ret.concat(this._normalizeSongs(data.song.list))
+        if (data) {
+          ret = ret.concat(this._normalizeSongs(data.list))
         }
         return ret
       },
       _normalizeSongs(list) {
         let ret = []
         list.forEach((item, index) => {
-          if (item.id && item.album.id) {
+          if (item.id ) {
             ret.push(createRecommendSong(item))
-            this._getSongUrl(item.mid).then(url => {
-              ret[index].url = url
-            })
+            ret[index].url = item.m_music_url
+            //this._getSongUrl(item.mid).then(url => {
+              //ret[index].url = url
+            //})
           }
         })
         return ret

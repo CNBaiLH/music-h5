@@ -16,10 +16,10 @@
   export default {
     computed: {
       title() {
-        return this.disc.dissname
+        return this.disc.name
       },
       bgImage() {
-        return this.disc.imgurl
+        return this.disc.thumb
       },
       // 通过vuex获取到disc
       ...mapGetters([
@@ -38,15 +38,14 @@
       _getSongList() {
         // 如果推荐歌单没有歌曲数据，自动跳转回推荐界面
         console.log(this.disc)
-        if (!this.disc.dissid) {
+        if (!this.disc.id) {
           this.$router.push('/recommend')
           return
         }
-        getSongList(this.disc.dissid).then((res) => {
+        getSongList(this.disc.id).then((res) => {
           console.log(res)
           if (res.code === ERR_OK) {
-            console.log(res.cdlist[0].songlist)
-            this.songs = this._normalizeSong(res.cdlist[0].songlist)
+            this.songs = this._normalizeSong(res.data.list)
             console.log(this.songs)
           } else {
             console.log('推荐歌单数据获取失败')
@@ -57,11 +56,12 @@
         let ret = []
         list.forEach((item, index) => {
           // console.log(item)
-          if (item.id && item.album.id) {
+          if (item.id) {
             ret.push(createRecommendSong(item))
-            this._getSongUrl(item.mid).then(url => {
-              ret[index].url = url
-            })
+            //this._getSongUrl(item.mid).then(url => {
+              //ret[index].url = url
+            //})
+            ret[index].url = item.m_music_url
           }
         })
         return ret

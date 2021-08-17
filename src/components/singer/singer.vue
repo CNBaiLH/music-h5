@@ -10,6 +10,7 @@
   import {ERR_OK} from 'api/config'
   import Singer from 'common/js/singer'
   import ListView from 'base/listview/listview'
+  import Loading from 'base/loading/loading'
   // 对mutations进行一些封装
   import {mapMutations} from 'vuex'
   import {playlistMixin} from 'common/js/mixin'
@@ -20,7 +21,8 @@
   export default {
     mixins: [playlistMixin],
     components: {
-      ListView
+      ListView,
+      Loading
     },
     data() {
       return {
@@ -69,11 +71,12 @@
         list.forEach((item, index) => {
           if (index < HOT_SINGER_LEN) {
             map.hot.items.push(new Singer({
-              id: item.Fsinger_mid,
-              name: item.Fsinger_name
+              id: item.id,
+              name: item.m_singer,
+              thumb:item.singer_thumb
             }))
           }
-          const key = item.Findex
+          const key = item.m_singer_id
           if (!map[key]) {
             map[key] = {
               title: key,
@@ -81,8 +84,9 @@
             }
           }
           map[key].items.push(new Singer({
-            id: item.Fsinger_mid,
-            name: item.Fsinger_name
+            id: item.id,
+            name: item.m_singer,
+            thumb:item.singer_thumb
           }))
         })
         // console.log(map)
@@ -120,4 +124,10 @@
     width: 100%
     // CSS3新特性：视口高度-88px 减号前后必须有空格
     // height: calc(100vh - 88px)
+
+    .loading-container
+            position: absolute
+            width: 100%
+            top: 50%
+            transform: translateY(-50%)
 </style>

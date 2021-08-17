@@ -21,12 +21,11 @@ export default class Song {
     }
 
     return new Promise((resolve, reject) => {
-      getLyric(this.mid).then((res) => {
-        if (res.retcode === ERR_OK) {
-          // 将64位的编码转化
-          this.lyric = Base64.decode(res.lyric)
+      getLyric(this.id,this.mid).then((res) => {
+        if (res.code === ERR_OK) {
+          this.lyric = res.data.lyric.lyric
           resolve(this.lyric)
-        } else {
+        }else {
           reject('no lyric')
         }
       })
@@ -38,13 +37,14 @@ export default class Song {
 // 歌手页面的歌曲信息
 export function createSong(musicData) {
   return new Song({
-    id: musicData.songid,
-    mid: musicData.songmid,
-    singer: filterSinger(musicData.singer),
-    name: musicData.songname,
-    album: musicData.albumname,
-    duration: musicData.interval,
-    image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
+    id: musicData.id,
+    mid: musicData.m_id,
+    singer: musicData.m_author,
+    name: musicData.m_name,
+    album: musicData.m_author,
+    duration: musicData.duration,//时长
+    image: musicData.m_thumb,
+    url:musicData.m_music_url,
     // 获取到正确url后，后续添加
     // url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}.m4a?fromtag=38&guid=5931742855&vkey=${songVkey}`
   })
@@ -55,12 +55,12 @@ export function createSong(musicData) {
 export function createRecommendSong(musicData) {
   return new Song({
     id: musicData.id,
-    mid: musicData.mid,
-    singer: filterSinger(musicData.singer),
-    name: musicData.name,
-    album: musicData.album.name,
-    duration: musicData.interval,
-    image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.album.mid}.jpg?max_age=2592000`,
+    mid: musicData.m_id,
+    singer: musicData.m_author,
+    name: musicData.m_name,
+    album: musicData.m_name,
+    duration:  musicData.duration,//时长
+    image: musicData.m_thumb,
   })
 }
 

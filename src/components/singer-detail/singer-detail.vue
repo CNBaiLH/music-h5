@@ -50,7 +50,7 @@
         getSingerDetail(this.singer.id).then((res) => {
           if (res.code === ERR_OK) {
             // 先看是否获取到了数据
-            // console.log(res.data.list)
+           //console.log(res.data.list)
             this.songs = this._normalizeSongs(res.data.list)
             // console.log(res.data.list)
             // console.log(this.songs)
@@ -61,17 +61,17 @@
       _normalizeSongs(list) {
         let ret = []
         list.forEach((item, index) => {
-          let {musicData} = item //得到music对象
-          if (musicData.songid && musicData.albummid) {
+          if (item.id) {
             // createSong将song再封装了一层
             // console.log(musicData)
-            ret.push(createSong(musicData))
+            ret.push(createSong(item))
             // console.log(ret)
             // 将正确歌曲的url添加进对应的歌曲列表
-            this._getSongUrl(musicData.songmid).then(url => {
+            //this._getSongUrl(musicData.id).then(url => {
               // console.log(url)
-              ret[index].url = url
-            })
+             // ret[index].url = url
+            //})
+            ret[index].url = item.m_music_url
           }
         })
         return ret

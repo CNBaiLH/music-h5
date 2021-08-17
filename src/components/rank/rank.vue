@@ -4,12 +4,13 @@
       <ul>
         <li @click="selectItem(item)" class="item" v-for="(item, index) in topList" :key="index">
           <div class="icon">
-            <img width="100" height="100" v-lazy="item.picUrl">
+            <img width="100" height="100" v-lazy="item.singer_thumb">
           </div>
+
           <ul class="songlist">
-            <li class="song" v-for="(song, index) in item.songList" :key="index">
+            <li class="song" v-for="(song, index) in item.song_list" :key="index">
               <span>{{index + 1}}</span>
-              <span>{{song.songname}}-{{song.singername}}</span>
+              <span>{{song.m_name}}-{{song.m_author}}</span>
             </li>
           </ul>
         </li>
@@ -53,7 +54,7 @@
       },
       selectItem(item) {
         this.$router.push({
-          path: `/rank/${item.id}`
+          path: `/rank/${item.m_singer_id}`
         })
         // 将topList数据存在vuex中，使用mutations传入组件
         // 然后在top-list.vue组件中就可以使用mapGetter获取
@@ -63,7 +64,7 @@
         getTopList().then((res) => {
           if (res.code === ERR_OK) {
             // console.log(res.data.topList)
-            this.topList = res.data.topList
+            this.topList = res.data.list
           }
         })
       },

@@ -1,13 +1,10 @@
 export const commonParams = {
-  g_tk: 5381,
-  inCharset: 'utf-8',
-  outCharset: 'utf-8',
-  notice: 0,
   format: 'jsonp'
 }
 
 export const options = {
-  param: 'jsonpCallback'
+  param: 'callback'
 }
 
+export const BACKEND_HOST = "http://127.0.0.1:8082";
 export const ERR_OK = 0

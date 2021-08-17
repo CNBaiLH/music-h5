@@ -9,6 +9,9 @@ import store from './store'
 import fastclick from 'fastclick'
 // 图片懒加载
 import VueLazyLoad from 'vue-lazyload'
+// import Vconsole from 'vconsole'
+// const vConsole = new Vconsole()
+// export default vConsole
 
 import 'common/stylus/index.styl'
 

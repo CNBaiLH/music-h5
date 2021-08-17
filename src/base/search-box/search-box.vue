@@ -66,6 +66,8 @@
       flex: 1
       margin: 0 5px
       line-height: 18px
+      outline: none
+      height: 80%
       background: $color-highlight-background
       color: $color-text
       font-size: $font-size-medium

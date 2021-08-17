@@ -5,11 +5,11 @@
         <div v-if="recommends.length" class="slider-wrapper">
           <slider>
             <div v-for="(item, index) in recommends" :key="index">
-              <a :href="item.linkUrl">
+              <a :href="item.thumb">
                 <!-- 因为better-scroll和fastclick的点击事件冲突
                 导致点击图片无法跳转
                 利用needsclick属性，使图片可以被点击 -->
-                <img class="needsclick" @load="loadImage" :src="item.picUrl">
+                <img class="needsclick" @load="loadImage" :src="item.thumb">
               </a>
             </div>
           </slider>
@@ -21,11 +21,11 @@
                 v-for="(item, index) in discList" :key="index"
                 class="item">
               <div class="icon">
-                <img width="60" height="60" v-lazy="item.imgurl"/>
+                <img width="60" height="60" v-lazy="item.thumb"/>
               </div>
               <div class="text">
-                <h2 class="name" v-html="item.creator.name"></h2>
-                <p class="desc" v-html="item.dissname"></p>
+                <h2 class="name" v-html="item.name"></h2>
+                <p class="desc" v-html="item.desc"></p>
               </div>
             </li>
           </ul>
@@ -82,14 +82,14 @@
       selectItem(item) {
         this.$router.push({
           // http://localhost:8080/#/recommend/7659044117
-          path: `/recommend/${item.dissid}`
+          path: `/recommend/${item.id}`
         })
         this.setDisc(item)
       },
       _getRecommend() {
         getRecommend().then((res) => {
           if (res.code === ERR_OK) {
-            this.recommends = res.data.slider
+            this.recommends = res.data.list
             // 轮播图数据
             // console.log(res.data.slider)
           }

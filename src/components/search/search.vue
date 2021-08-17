@@ -121,8 +121,9 @@
       // 获取热搜词
       _getHotKey() {
         getHotKey().then((res) => {
+        console.log(res)
           if (res.code === ERR_OK) {
-            // console.log(res.data.hotkey)
+            console.log(res.data.hotkey)
             // 截取前10的数据
             this.hotKey = res.data.hotkey.slice(0, 10)
           }
