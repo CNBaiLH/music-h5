@@ -4,7 +4,7 @@
       <ul>
         <li @click="selectItem(item)" class="item" v-for="(item, index) in topList" :key="index">
           <div class="icon">
-            <img width="100" height="100" v-lazy="item.singer_thumb">
+            <img width="100" height="100" v-lazy="item.thumb">
           </div>
 
           <ul class="songlist">
@@ -54,7 +54,7 @@
       },
       selectItem(item) {
         this.$router.push({
-          path: `/rank/${item.m_singer_id}`
+          path: `/rank/${item.id}`
         })
         // 将topList数据存在vuex中，使用mutations传入组件
         // 然后在top-list.vue组件中就可以使用mapGetter获取

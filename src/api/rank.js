@@ -15,8 +15,8 @@ export function getTopList() {
   return jsonp(url, data, options)
 }
 
-export function getMusicList(singer_id) {
-  const url = BACKEND_HOST+'/rank/'+singer_id
+export function getMusicList(rank_id) {
+  const url = BACKEND_HOST+'/rank/'+`${rank_id}`
 
   const data = Object.assign({}, commonParams, {
   })

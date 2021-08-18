@@ -15,7 +15,7 @@
   export default {
     computed: {
       title() {
-        return this.topList.m_author
+        return this.topList.title
       },
       bgImage() {
         // 使用每首歌的第一张图作为排行榜歌单的背景
@@ -23,7 +23,7 @@
         //   return this.songs[0].image
         // }
         // return ''
-        return this.topList.singer_thumb
+        return this.topList.thumb
       },
       // 使用mapGetters从vuex中获取state中的topList数据
       ...mapGetters([
@@ -47,7 +47,7 @@
           this.$router.push('/rank')
           return
         }
-        getMusicList(this.topList.m_singer_id).then((res) => {
+        getMusicList(this.topList.id).then((res) => {
           if (res.code === ERR_OK) {
             this.songs = this._normalizeSongs(res.data.list.song_list)
             console.log(this.songs)
